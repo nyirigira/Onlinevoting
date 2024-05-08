@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - Votes</title>
+</head>
+<body>
+    <h1>Votes</h1>
+    <ul>
+        {% for vote in votes %}
+        <li>{{ vote.voter.username }} voted for {{ vote.candidate.name }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

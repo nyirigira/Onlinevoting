@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voter Home</title>
+    <!-- Internal CSS -->
+    <style>
+        /* Style the body */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Style the form */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        /* Style each list item */
+        li {
+            background-color: white;
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style the candidate's image */
+        img {
+            max-width: 100px;
+            height: auto;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        /* Style the candidate's details */
+        h2, p {
+            margin: 0;
+        }
+
+        /* Style the button */
+        button[type="submit"] {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Style the registration link */
+        p a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        p a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Voter Home</h1>
+    <ul>
+        {% for candidate in candidates %}
+            <li>
+                {% if candidate.picture %}
+                    <img src="{{ candidate.picture.url }}" alt="Picture of {{ candidate.name }}">
+                {% else %}
+                    <img src="{% static 'images/placeholder.jpg' %}" alt="No Picture">
+                {% endif %}
+                <h2>{{ candidate.name }}</h2>
+                <p>{{ candidate.description }}</p>
+                <p>Votes: {{ candidate.vote_count }}</p>  <!-- Display the number of votes -->
+                <form method="POST" action="{% url 'vote' candidate.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Vote</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

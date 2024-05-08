@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - Candidates</title>
+</head>
+<body>
+    <h1>Candidates</h1>
+    <ul>
+        {% for candidate in candidates %}
+        <li>{{ candidate.name }} - {{ candidate.description }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'admin_create_candidate' %}">Add Candidate</a>
+</body>
+</html>
